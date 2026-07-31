@@ -13,15 +13,18 @@ st.set_page_config(
     layout="wide"
 )
 
-# Title & Sidebar Configuration
+# Initialize Credentials securely from Streamlit Secrets or Environment Variables
+api_key = st.secrets.get("ALPACA_API_KEY", os.getenv("ALPACA_API_KEY", ""))
+secret_key = st.secrets.get("ALPACA_SECRET_KEY", os.getenv("ALPACA_SECRET_KEY", ""))
+
+# Title Header
 st.title("📈 Quantitative Paper Trading Dashboard")
 
-st.sidebar.header("Alpaca Credentials")
-api_key = st.sidebar.text_input("API Key", value=os.getenv("ALPACA_API_KEY", ""), type="password")
-secret_key = st.sidebar.text_input("Secret Key", value=os.getenv("ALPACA_SECRET_KEY", ""), type="password")
-
 if not api_key or not secret_key:
-    st.warning("Please provide your Alpaca Paper Trading API keys in the sidebar or environment variables.")
+    st.error(
+        "Alpaca API credentials not found. Please add `ALPACA_API_KEY` and "
+        "`ALPACA_SECRET_KEY` to your Streamlit secrets or environment variables."
+    )
     st.stop()
 
 @st.cache_resource
@@ -36,14 +39,14 @@ except Exception as e:
     st.stop()
 
 # ==========================================
-# Metrics Bar
+# 1. Metrics Overview Bar
 # ==========================================
 equity = float(account.equity)
 cash = float(account.cash)
 buying_power = float(account.buying_power)
 last_equity = float(account.last_equity)
 equity_change = equity - last_equity
-equity_pct_change = (equity_change / last_equity) * 100
+equity_pct_change = (equity_change / last_equity) * 100 if last_equity else 0.0
 
 col1, col2, col3, col4 = st.columns(4)
 col1.metric("Portfolio Value", f"${equity:,.2f}", f"{equity_pct_change:+.2f}%")
@@ -54,11 +57,15 @@ col4.metric("Account Status", account.status.value.upper())
 st.markdown("---")
 
 # ==========================================
-# Current Positions & Asset Allocation
+# 2. Current Holdings & Portfolio Allocation
 # ==========================================
 st.subheader("Current Holdings & Portfolio Allocation")
 
-positions = client.get_all_positions()
+try:
+    positions = client.get_all_positions()
+except Exception as e:
+    st.error(f"Error fetching positions: {e}")
+    positions = []
 
 if positions:
     pos_data = []
@@ -99,17 +106,21 @@ if positions:
         )
         st.plotly_chart(fig, use_container_width=True)
 else:
-    st.info("No active positions found in account.")
+    st.info("No active positions currently held in account.")
 
 st.markdown("---")
 
 # ==========================================
-# Order History & Execution Logs
+# 3. Order History & Execution Logs
 # ==========================================
 st.subheader("Recent Execution Logs & Order History")
 
-request_params = GetOrdersRequest(status=QueryOrderStatus.ALL, limit=20)
-orders = client.get_orders(filter=request_params)
+try:
+    request_params = GetOrdersRequest(status=QueryOrderStatus.ALL, limit=20)
+    orders = client.get_orders(filter=request_params)
+except Exception as e:
+    st.error(f"Error fetching orders: {e}")
+    orders = []
 
 if orders:
     order_data = []
