@@ -1,0 +1,8 @@
+alpaca-py
+xgboost
+yfinance
+pandas
+numpy
+streamlit
+plotly
+scikit-learn
