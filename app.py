@@ -10,15 +10,27 @@ st.set_page_config(page_title="Quant Alpha Dashboard", layout="wide")
 st.title("📈 Dynamic Quant Alpha Dashboard")
 st.caption("All statistics are computed directly from live model and backtest executions.")
 
-st.sidebar.header("Execution Controls")
+# Initialize session state stores if they don't exist yet
+if 'targets' not in st.session_state:
+    st.session_state['targets'] = None
 
-# Live Rebalance Holdings Section
+if 'backtest_data' not in st.session_state:
+    st.session_state['backtest_data'] = None
+
+# ==========================================
+# 1. Live Target Holdings Section
+# ==========================================
 st.subheader("1. Live Target Holdings (Real-time Model Signal)")
+
 if st.button("Generate Live Signals"):
     with st.spinner("Computing dynamic targets..."):
-        targets = generate_target_holdings()
-        
+        st.session_state['targets'] = generate_target_holdings()
+
+# Display live targets if stored in session state
+if st.session_state['targets'] is not None:
+    targets = st.session_state['targets']
     col1, col2 = st.columns([2, 1])
+    
     with col1:
         st.dataframe(
             targets[['Ticker', 'Sector', 'Prob_Up', 'Weight', 'Close']].style.format({
@@ -34,11 +46,27 @@ if st.button("Generate Live Signals"):
 
 st.markdown("---")
 
-# Dynamic Backtest Section
+# ==========================================
+# 2. Dynamic Backtest Section
+# ==========================================
 st.subheader("2. Walk-Forward Backtest Performance")
+
 if st.button("Run Full Dynamic Backtest"):
     with st.spinner("Executing walk-forward backtest on historical data..."):
         metrics, equity_df, results_df = run_walkforward_backtest()
+        # Persist all backtest outputs in session state
+        st.session_state['backtest_data'] = {
+            'metrics': metrics,
+            'equity_df': equity_df,
+            'results_df': results_df
+        }
+
+# Display backtest results if stored in session state
+if st.session_state['backtest_data'] is not None:
+    bt_data = st.session_state['backtest_data']
+    metrics = bt_data['metrics']
+    equity_df = bt_data['equity_df']
+    results_df = bt_data['results_df']
 
     m1, m2, m3, m4 = st.columns(4)
     m1.metric("Strategy Return", f"{metrics['strategy_total_return_pct']:+.2f}%", f"{metrics['strategy_total_return_pct'] - metrics['spy_total_return_pct']:+.2f}% vs SPY")
