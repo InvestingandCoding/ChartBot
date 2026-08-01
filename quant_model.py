@@ -10,22 +10,7 @@ warnings.filterwarnings('ignore')
 # Configuration & Universe
 # ==========================================
 TICKER_SECTORS = {
-    "NVDA": "Tech", "AAPL": "Tech", "GOOGL": "Tech", "GOOG": "Tech", "MSFT": "Tech",
-    "AMZN": "ConsDisc", "AVGO": "Tech", "META": "Tech", "TSLA": "ConsDisc", "LLY": "Health",
-    "MU": "Tech", "BRK-B": "Financials", "JPM": "Financials", "WMT": "ConsStaples", "AMD": "Tech",
-    "V": "Financials", "XOM": "Energy", "JNJ": "Health", "MA": "Financials", "INTC": "Tech",
-    "CSCO": "Tech", "ABBV": "Health", "BAC": "Financials", "COST": "ConsStaples", "AMAT": "Tech",
-    "CVX": "Energy", "UNH": "Health", "CAT": "Industrials", "KO": "ConsStaples", "LRCX": "Tech",
-    "GE": "Industrials", "ORCL": "Tech", "PG": "ConsStaples", "HD": "ConsDisc", "MS": "Financials",
-    "MRK": "Health", "GS": "Financials", "NFLX": "CommServices", "PM": "ConsStaples", "PLTR": "Tech",
-    "RTX": "Industrials", "PANW": "Tech", "DELL": "Tech", "WFC": "Financials", "TXN": "Tech",
-    "KLAC": "Tech", "AXP": "Financials", "ANET": "Tech", "C": "Financials", "TMO": "Health",
-    "IBM": "Tech", "AMGN": "Health", "APH": "Tech", "VZ": "CommServices", "CRWD": "Tech",
-    "MCD": "ConsDisc", "PEP": "ConsStaples", "WDC": "Tech", "ABT": "Health", "QCOM": "Tech",
-    "DIS": "CommServices", "ADBE": "Tech", "ACN": "Tech", "PFE": "Health", "T": "CommServices",
-    "CMCSA": "CommServices", "NKE": "ConsDisc", "NEE": "Utilities", "LIN": "Materials", "UNP": "Industrials",
-    "COP": "Energy", "MDT": "Health", "TJX": "ConsDisc", "LOW": "ConsDisc", "DE": "Industrials",
-    "INTU": "Tech", "LMT": "Industrials", "BA": "Industrials", "SPGI": "Financials", "BLK": "Financials"
+    "NVDA": "Tech", "AAPL": "Tech", "GOOGL": "Tech", "GOOG": "Tech", "MSFT": "Tech", "AMZN": "ConsDisc", "AVGO": "Tech", "META": "Tech", "TSLA": "ConsDisc", "LLY": "Health", "MU": "Tech", "BRK-B": "Financials", "JPM": "Financials", "WMT": "ConsStaples", "AMD": "Tech", "V": "Financials", "XOM": "Energy", "JNJ": "Health", "MA": "Financials", "INTC": "Tech", "CSCO": "Tech", "ABBV": "Health", "BAC": "Financials", "COST": "ConsStaples", "AMAT": "Tech", "CVX": "Energy", "UNH": "Health", "CAT": "Industrials", "KO": "ConsStaples", "LRCX": "Tech", "GE": "Industrials", "ORCL": "Tech", "PG": "ConsStaples", "HD": "ConsDisc", "MS": "Financials", "MRK": "Health", "GS": "Financials", "NFLX": "CommServices", "PM": "ConsStaples", "PLTR": "Tech", "RTX": "Industrials", "PANW": "Tech", "DELL": "Tech", "WFC": "Financials", "TXN": "Tech", "KLAC": "Tech", "AXP": "Financials", "ANET": "Tech", "C": "Financials", "TMO": "Health", "IBM": "Tech", "AMGN": "Health", "APH": "Tech", "VZ": "CommServices", "CRWD": "Tech", "MCD": "ConsDisc", "PEP": "ConsStaples", "WDC": "Tech", "ABT": "Health", "QCOM": "Tech", "DIS": "CommServices", "ADBE": "Tech", "ACN": "Tech", "PFE": "Health", "T": "CommServices", "CMCSA": "CommServices", "NKE": "ConsDisc", "NEE": "Utilities", "LIN": "Materials", "UNP": "Industrials", "COP": "Energy", "MDT": "Health", "TJX": "ConsDisc", "LOW": "ConsDisc", "DE": "Industrials", "INTU": "Tech", "LMT": "Industrials", "BA": "Industrials", "SPGI": "Financials", "BLK": "Financials", "NOW": "Tech", "SNPS": "Tech", "CDNS": "Tech", "EL": "ConsStaples", "CL": "ConsStaples", "MDLZ": "ConsStaples", "MO": "ConsStaples", "SYK": "Health", "BSX": "Health", "CI": "Health", "CVS": "Health", "HCA": "Health", "BDX": "Health", "ETN": "Industrials", "PH": "Industrials", "WM": "Industrials", "NSC": "Industrials", "CSX": "Industrials", "ITW": "Industrials", "EMR": "Industrials"
 }
 
 TICKERS = list(TICKER_SECTORS.keys())
