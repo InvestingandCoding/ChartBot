@@ -3,7 +3,7 @@ name: Weekly Trading Bot Execution
 on:
   schedule:
     # 13:31 UTC corresponds to 9:31 AM EDT on Mondays
-    - cron: '31 13 * * 1'
+    - cron: '45 9 * * *'
   workflow_dispatch: # Allows manual trigger from GitHub UI anytime
 
 jobs:
